@@ -11,7 +11,7 @@ node {
         }
         stage('Deploy') { 
             sh './jenkins/scripts/deliver.sh' 
-            sleep 5
+            sleep 60
             return
         }   
     }
