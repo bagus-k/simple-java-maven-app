@@ -10,12 +10,15 @@ node {
             sh './jenkins/scripts/deliver.sh' 
         }
         stage('Manual Approval') {
-            input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)' 
+            input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)'
+            if (!continueBuild) {
+                currentBuild.result = 'ABORTED'
+                sh './jenkins/scripts/kill.sh' 
+            }
         }
         stage('Deploy') { 
             sh './jenkins/scripts/deliver.sh' 
             sleep 60
-            input message: 'Sudah selesai menggunakan Simple Java App? (Klik "Proceed" untuk mengakhiri)' 
             sh './jenkins/scripts/kill.sh' 
         }
     }
