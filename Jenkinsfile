@@ -8,16 +8,10 @@ node {
         }
         stage('Manual Approval') {
             input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan)'
-            if (!continueBuild) {
-                currentBuild.result = 'ABORTED'
-                sh './jenkins/scripts/kill.sh' 
-            } else {
-                stage('Deploy') { 
-                    sh './jenkins/scripts/deliver.sh' 
-                    sleep 60
-                    sh './jenkins/scripts/kill.sh' 
-                }
-            }
         }
+        stage('Deploy') { 
+            sh './jenkins/scripts/deliver.sh' 
+            sleep 60
+            sh './jenkins/scripts/kill.sh' 
     }
 }
