@@ -6,9 +6,6 @@ node {
         stage('Test') {
             sh 'mvn test'
         }
-        stage('Deliver') { 
-            sh './jenkins/scripts/deliver.sh' 
-        }
         stage('Manual Approval') {
             input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)'
             if (!continueBuild) {
